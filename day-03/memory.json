@@ -1,0 +1,13 @@
+{
+  "tool_history": [
+    {
+      "tool": "convert_units",
+      "input": "How many miles is 755 km?",
+      "result": "755 kilometers is equal to 469.1351 miles.",
+      "timestamp": "2026-05-15T21:35:05.308107"
+    }
+  ],
+  "facts_learned": {},
+  "session_count": 2,
+  "last_seen": "2026-05-15T21:36:03.435150"
+}
