@@ -1,0 +1,23 @@
+# API keys — never commit these
+.env
+*/.env
+# Python cache
+__pycache__/
+*/__pycache__/
+*.pyc
+*.pyo
+# Virtual environments
+venv/
+*/venv/
+# VS Code
+.vscode/
+*/.vscode/
+# Mac files
+.DS_Store
+
+# ADK session files
+.adk/
+*/.adk/
+# Rate limiter usage tracking
+api_usage.json
+*/api_usage.json
