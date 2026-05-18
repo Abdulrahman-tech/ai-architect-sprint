@@ -1,0 +1,29 @@
+[
+  {
+    "time": "22:16:14",
+    "input": "What is Apple stock price?",
+    "tools": [
+      "get_stock_data"
+    ],
+    "latency_ms": 18177.05,
+    "response_preview": "The current price of Apple stock is $297.84. \u26a0\ufe0f Not financial advice. Do your own research."
+  },
+  {
+    "time": "22:17:57",
+    "input": "Assess risk: 10 AAPL and 5 MSFT",
+    "tools": [
+      "get_portfolio_with_risk"
+    ],
+    "latency_ms": 6158.35,
+    "response_preview": "The total value of your portfolio is $5096.10. The risk level is HIGH. The recommendation is to dive"
+  },
+  {
+    "time": "22:18:24",
+    "input": "Compare AAPL and MSFT",
+    "tools": [
+      "compare_stocks"
+    ],
+    "latency_ms": 9685.95,
+    "response_preview": "Here's a comparison between Apple (AAPL) and Microsoft (MSFT):\n\n**Apple (AAPL):**\n* Price: $297.84\n*"
+  }
+]
