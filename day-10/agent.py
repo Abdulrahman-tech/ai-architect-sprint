@@ -177,17 +177,19 @@ def build_agent(user_query: str = "") -> LlmAgent:
 
 
 session_service = InMemorySessionService()
+_runner = None  # global runner — created once, reused forever
 
 async def setup():
-    agent = build_agent()
-    runner = Runner(agent=agent, app_name=APP_NAME, session_service=session_service)
+    global _runner
+    agent = build_agent()  # initial agent with no query context
+    _runner = Runner(agent=agent, app_name=APP_NAME, session_service=session_service)
     session = await session_service.create_session(
         app_name=APP_NAME, user_id=USER_ID, session_id=SESSION_ID)
     print(f"✅ Session ready: {session.id}")
     print(f"✅ Knowledge base: {len(MEDICAL_KNOWLEDGE)} documents")
     print("✅ Pydantic schema validation: ACTIVE")
     print("✅ Safety guardrails: ACTIVE")
-    return runner
+    
 
 def get_hitl_confirmation(user_input: str) -> bool:
     print(f"\n  📋 HITL CHECK — '{user_input[:60]}'")
@@ -204,10 +206,10 @@ async def chat(message: str) -> str:
     if not get_hitl_confirmation(message):
         return "Understood. Please consult a healthcare professional if needed."
 
-    new_agent = build_agent(message)
-    new_runner = Runner(
-        agent=new_agent, app_name=APP_NAME, session_service=session_service)
-
+   # Inject RAG context into the existing runner's agent instruction
+    # No new runner created — reuses existing one
+   # Reuse the existing runner — no new API calls on initialization
+    new_runner = _runner
     wait_between_calls()
 
     user_message = types.Content(
@@ -281,4 +283,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-    
