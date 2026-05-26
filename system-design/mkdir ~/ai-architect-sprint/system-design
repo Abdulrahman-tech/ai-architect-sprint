@@ -1,0 +1,39 @@
+# FinSight — System Design Document
+
+## Problem Statement
+Users need to analyse stock portfolios, assess concentration risk,
+and compare stocks without navigating complex financial platforms.
+
+## Architecture
+
+## Tools Chosen and Why
+
+| Tool | Why |
+|------|-----|
+| yfinance | Free, no API key, reliable real-time data |
+| Pure Python HHI | No external dependency, explainable formula |
+| JSON tracing | Simple, readable, no database needed |
+| Pydantic (evaluator) | Schema validation for eval results |
+
+## Trade-offs Made
+
+**Single agent vs multi-agent:**
+Originally designed as Orchestrator → DataFetcher → RiskAssessor (3 agents).
+Collapsed to single agent with smart tools.
+Reason: free tier = 5 RPM. Multi-agent = 8 calls per query. Math doesn't work.
+Result: same output, 75% fewer API calls.
+
+**HHI for risk vs ML model:**
+HHI (Herfindahl-Hirschman Index) is a simple formula, not ML.
+Reason: explainable, deterministic, no training data needed.
+Trade-off: less nuanced than ML but auditable and trustworthy.
+
+## Lessons Learned
+- Tool docstring quality determines routing accuracy more than model size
+- Evaluation harnesses should be built from day 1, not day 6
+- yfinance has ~15min delay — fine for analysis, not for trading
+
+## What I Would Do Differently
+- Add historical price data for volatility calculation
+- Add sector diversification analysis
+- Build the evaluation harness on Day 4, not Day 6
